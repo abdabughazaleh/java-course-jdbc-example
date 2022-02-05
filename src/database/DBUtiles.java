@@ -5,12 +5,14 @@ import java.sql.*;
 public abstract class DBUtiles {
 
 
-    abstract Statement connect() throws SQLException;
+    abstract Statement connect() ;
+    abstract void disConnect() ;
 
 
     public void query(String query) {
         try {
             ResultSet rs = connect().executeQuery(query);
+            disConnect();
             while (rs.next()) {
 
             }
@@ -48,7 +50,9 @@ public abstract class DBUtiles {
             connect().execute(builder.toString());
             System.out.println("Record saved.");
             System.out.println("-----------------------------------------");
+            disConnect();
         } catch (Exception e) {
+            disConnect();
             e.printStackTrace();
         }
     }
@@ -57,7 +61,9 @@ public abstract class DBUtiles {
         try {
             connect().execute(query);
             System.out.println("User has been deleted.");
+            disConnect();
         } catch (Exception e) {
+            disConnect();
             e.printStackTrace();
         }
     }
@@ -70,9 +76,10 @@ public abstract class DBUtiles {
             if (rs.next()) {
                 return true;
             }
-
+            disConnect();
             return false;
         } catch (Exception e) {
+            disConnect();
             e.printStackTrace();
             return false;
         }

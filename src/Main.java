@@ -31,8 +31,8 @@ public class Main {
 
         } else {
             System.out.println("User dosn't  exist.");
-
         }
+
 
 
     }
